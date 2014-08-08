@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html ng-app="wordGame">
+<head>
+<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="./word_game.css">
+</head>
+<body style="background-image:url('./wallpaper.jpg')">
+		<div id="div_master" class="div_master" ng-controller="GameCtrl">
+			<div id="div_left" class="div_left">
+				<div id="div_l_core" class="div_l_core">
+					<div id="header" class="header_main">
+						<div id="time_block" class="time_blk header_blk"><br/>
+							<font size="4px" color="gray"> <span class="glyphicon glyphicon-time"></span>
+							<div id="time_box" class="time_box header_box">{{time_min}}:{{time_sec}}:{{time_csec}}</div></font>
+						</div>
+							
+						<div id="score_block" class="score_blk header_blk">
+							<font size="5px" color="#404040"><span class="glyphicon glyphicon-screenshot"></span></font><font size="6px" color="#404040"> {{total_score}}
+							</font>
+						</div>
+
+						<div id="div_rb_counter" class="word_count_box header_box"><font color="gray" size="3px">Word:</font><font size="6px" color="#404040"> {{current_word_index+1}}/</font><font size="5px" color="gray">{{total_words}}</font></div>
+
+
+					</div>
+					<div ng-controller="WordCtrl">
+					<div ng-controller="CharCtrl">
+					<div id="div_lc_top" class="div_lc_top lc" >
+						<div id="div_lct_core" class="div_lct_core">
+						
+						<div id="hint_place" class="div_lct_hint"><font size="10px" color="white">Word Sprint Game!!!</font>
+						</div>
+
+						
+						</div>
+					</div>
+					<div id="div_lc_middle"	class="lc div_lc_middle">
+						<div id="progress_line" class="progress progress_line">  
+    						<div id="bar_four" class="progress-bar progress-bar-danger  my_bar" style="width:16%;"> </div>
+    						<div id="bar_three" class="progress-bar progress-bar-warning  my_bar">    </div>
+    						<div id="bar_two" class="progress-bar progress-bar-info my_bar" >    </div>
+    						<div id="bar_one" class="progress-bar progress-bar-success my_bar">    </div>
+  						</div>
+						
+						<div id="div_lcm_indication_parent" class="div_lcm_indication_parent">
+							<div id="div_lcm_indication" class="div_lcm_indication">
+								<div style="display:inline-block;align:center;width:16%;text-align:center;background-color:#d9534f;color:white;" class="indicator">10</div>
+    							<div style="display:inline-block;align:center;width:28%;text-align:center;background:#f0ad4e;color:white;" class="indicator">30</div>
+    							<div style="display:inline-block;align:center;width:28%;text-align:center;background:#5bc0de;color:white;" class="indicator">70</div>
+    							<div style="display:inline-block;align:center;width:28%;text-align:center;background:#5cb85c;color:white;" class="indicator">100</div>
+
+							</div>
+						</div>	
+						
+					</div>
+					<div id="div_lc_bottom" class="div_lc_bottom lc">
+						<div id="0" class="child"  ng-click='check_me(0);' onmouseover="child_hover(this);" onmouseout="child_mouse_out(this)" >&nbsp;{{tile[0]}}</div>
+						<div id="1" class="child" ng-click='check_me(1);' onmouseover="child_hover(this);" onmouseout="child_mouse_out(this)"  >&nbsp;{{tile[1]}}</div>
+						<div id="2" class="child" ng-click='check_me(2);' onmouseover="child_hover(this);" onmouseout="child_mouse_out(this)"  >&nbsp;{{tile[2]}}</div>
+						<div id="3" class="child"  ng-click='check_me(3);' onmouseover="child_hover(this);" onmouseout="child_mouse_out(this)"  >&nbsp;{{tile[3]}}</div>
+						<div id="4" class="child"  ng-click='check_me(4);' onmouseover="child_hover(this);" onmouseout="child_mouse_out(this)"  >&nbsp;{{tile[4]}}</div>
+						<div id="5" class="child"  ng-click='check_me(5);' onmouseover="child_hover(this);" onmouseout="child_mouse_out(this)"  >&nbsp;{{tile[5]}}</div>
+						<div id="6" class="child"  ng-click='check_me(6);'  onmouseover="child_hover(this);" onmouseout="child_mouse_out(this)" >&nbsp;{{tile[6]}}</div>
+						<div id="7" class="child"  ng-click='check_me(7);' onmouseover="child_hover(this);" onmouseout="child_mouse_out(this)"  >&nbsp;{{tile[7]}}</div>
+						<div id="8" class="child"  ng-click='check_me(8);' onmouseover="child_hover(this);" onmouseout="child_mouse_out(this)"  >&nbsp;{{tile[8]}}</div>
+					</div>
+					</div>
+				</div>
+					<div id="control_bar" class="control_bar">
+						
+						<button id="div_rb_start" type="button" class="btn btn-success btn-lg div_rb_start rb" ng-click="start_game();" ng-disabled="game_phase!='not_yet_started'">
+ 							 <font size="5px"><span class="glyphicon glyphicon-off" ></span><font color="#2E2E2E"> Start</font></font>
+						</button>
+
+						<button id="play_pause_btn" type="button" class="btn btn-warning btn-lg div_rb_playpause rb" ng-click="play_pause()" ng-disabled="game_phase=='waiting' || game_phase=='not_yet_started'">
+							<font size="5px">	
+ 							 <span class="glyphicon glyphicon-pause" ></span><font color="#2E2E2E">Pause</font></font>
+						</button>
+
+						<button id="quit_btn" type="button" class="btn btn-danger btn-lg div_rb_quit rb"  ng-click="terminate_game();" ng-disabled="game_phase=='not_yet_started'">
+
+ 							<font size="5px">	 <span class="glyphicon glyphicon-remove" ></span><font  color="#2E2E2E">Quit</font></font>
+						</button>
+					</div>
+				</div>			
+			</div>
+		</div>
+<iframe id="audio_frame" hidden="true" src="">
+  <p>Your browser does not support iframes.</p>
+</iframe>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular-route.min.js"></script>
+<script type="text/javascript" src="./word_game_ng.js"></script>
+</body>
+</html>
